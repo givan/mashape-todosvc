@@ -1,9 +1,19 @@
 package com.mashape.todosvc.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import io.searchbox.annotations.JestId;
+import net.vz.mongodb.jackson.Id;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 // POJO for to-do entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Todo {
+
+    @Id
+    @JestId
+    @JsonProperty("id")
+    private String id;
+
     @JsonProperty("title")
     private String title;
 
@@ -17,7 +27,8 @@ public class Todo {
 
     }
 
-    public Todo(String title, String body, Boolean completed) {
+    public Todo(String id, String title, String body, Boolean completed) {
+        this.id = id;
         this.title = title;
         this.body = body;
         this.completed = completed;
@@ -38,4 +49,17 @@ public class Todo {
     public void setCompleted() {
         this.completed = true;
     }
+
+    @Override
+    public String toString() {
+        return "Todo {title=" + this.title + ", body=" + this.body + ", completed=" + this.completed + "}";
+    }
+
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }
+
 }
