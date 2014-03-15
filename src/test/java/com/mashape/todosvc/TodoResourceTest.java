@@ -53,7 +53,7 @@ public class TodoResourceTest extends JerseyTest {
                         .readEntity(Todo.class);
 
         final Todo foundTodo =
-                target().path("/todos/todo/" + String.valueOf(createdTodo.getId()))
+                target().path("/todos/todo/" + createdTodo.getId())
                         .request(MediaType.APPLICATION_JSON)
                         .get(Todo.class);
 
@@ -72,7 +72,7 @@ public class TodoResourceTest extends JerseyTest {
                         .readEntity(Todo.class);
 
         final Response response =
-                target().path("/todos/todo/" + String.valueOf(createdTodo.getId()))
+                target().path("/todos/todo/" + createdTodo.getId())
                         .request()
                         .delete();
 
@@ -93,13 +93,13 @@ public class TodoResourceTest extends JerseyTest {
         createdTodo.setCompleted();
 
         final Response response =
-                target().path("/todos/todo/" + String.valueOf(createdTodo.getId()))
+                target().path("/todos/todo/" + createdTodo.getId())
                         .request()
                         .put(Entity.entity(mapper.writeValueAsString(createdTodo), MediaType.APPLICATION_JSON_TYPE));
         assertEquals(200, response.getStatus());
 
         final Todo foundTodo =
-                target().path("/todos/todo/" + String.valueOf(createdTodo.getId()))
+                target().path("/todos/todo/" + createdTodo.getId())
                         .request(MediaType.APPLICATION_JSON)
                         .get(Todo.class);
 

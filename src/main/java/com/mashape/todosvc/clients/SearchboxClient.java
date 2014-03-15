@@ -1,4 +1,4 @@
-package com.mashape.todosvc.searchbox.io.client;
+package com.mashape.todosvc.clients;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.mashape.todosvc.model.Todo;
@@ -24,7 +24,7 @@ public class SearchboxClient {
     // TODO: this should go in a config file
     private final String SearchBoxUrl = "http://bombur-us-east-1.searchly.com/api-key/415a0534d9c1bca9f626744c54aac4b2";
 
-    private JestClient searchBoxClient = null;
+    private final JestClient searchBoxClient;
 
     public SearchboxClient() {
         // Configuration
@@ -53,6 +53,8 @@ public class SearchboxClient {
 
     public List<Todo> search(String query) throws Exception {
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+
+        // give higher weight on the title, than on the body - factor of 5
         searchSourceBuilder.query(QueryBuilders.multiMatchQuery(query, "title^5", "body"));
 
         Search search = new Search.Builder(searchSourceBuilder.toString())

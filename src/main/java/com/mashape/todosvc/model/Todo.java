@@ -28,6 +28,8 @@ public class Todo {
     }
 
     public Todo(String id, String title, String body, Boolean completed) {
+        // TODO - think about validation here - what if the title is too long, what if the body is too long?
+
         this.id = id;
         this.title = title;
         this.body = body;
